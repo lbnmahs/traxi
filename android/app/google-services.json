@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "832498654990",
+    "project_id": "traxi-2516f",
+    "storage_bucket": "traxi-2516f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832498654990:android:21388e7cd7b022e46a815f",
+        "android_client_info": {
+          "package_name": "com.example.traxi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd_anIalHwDvmc3BWWLtfw_cUl9sFIpmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
