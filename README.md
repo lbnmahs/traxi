@@ -1,16 +1,37 @@
-# traxi
+# Traxi
 
-A new Flutter project.
+Traxi is a convenient and intuitive platform designed to effortlessly book train and tram tickets, offering real-time updates, and secure payments. With seamless integration of schedules, seat selections, and multi-language support, it simplifies the process of planning and managing travel arrangements.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To run the application, run the following commands
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone the repository
+    ```git
+       git clone https://github.com/lbnmahs/traxi.git
+    ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Change the directory
+    ```git
+       cd traxi
+    ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Fetch dependencies
+    ```dart
+       flutter pub get
+    ```
+
+4. Run the application
+    ```dart
+       flutter run
+    ```
+## Contributing
+
+Contributions are welcome! If you find any bugs or have suggestions for improvement, please open an issue or submit a pull request.
+
+
+## Acknowledgements
+
+* Flutter, an open-source UI software development toolkit, developed this app.
+
+Happy Coding 🚀
