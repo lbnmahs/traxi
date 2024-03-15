@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -49,19 +50,19 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBd_anIalHwDvmc3BWWLtfw_cUl9sFIpmk',
-    appId: '1:832498654990:android:21388e7cd7b022e46a815f',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_OPTIONS_ANDROID_API_KEY'] as String,
+    appId: dotenv.env['FIREBASE_OPTIONS_ANDROID_APPID'] as String,
     messagingSenderId: '832498654990',
-    projectId: 'traxi-2516f',
+    projectId: dotenv.env['FIREBASE_PROJECT_ID'] as String,
     storageBucket: 'traxi-2516f.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBmjc3bj-fhggFOx1oX_Tf-jYnQCM0Urq4',
-    appId: '1:832498654990:ios:34d29a0b1cfb731f6a815f',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_OPTIONS_IOS_API_KEY'] as String,
+    appId: dotenv.env['FIREBASE_OPTIONS_IOS_APPID'] as String,
     messagingSenderId: '832498654990',
-    projectId: 'traxi-2516f',
+    projectId: dotenv.env['FIREBASE_PROJECT_ID'] as String,
     storageBucket: 'traxi-2516f.appspot.com',
     iosBundleId: 'com.example.traxi',
   );
