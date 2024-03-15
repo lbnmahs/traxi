@@ -8,6 +8,8 @@ import 'package:traxi/data/auth/user_data_provider.dart';
 import 'package:traxi/data/auth/user_repository.dart';
 import 'package:traxi/firebase_options.dart';
 import 'package:traxi/middleware/auth/bloc/user_auth_bloc.dart';
+import 'package:traxi/views/screens/auth_screen.dart';
+import 'package:traxi/views/screens/home_screen.dart';
 import 'package:traxi/views/screens/splash_screen.dart';
 
 Future<void> main() async {
@@ -56,7 +58,19 @@ class MyApp extends StatelessWidget {
         listeners: [
           BlocListener<UserAuthBloc, UserAuthState>(
             listener: (context, state) {
-
+              if(state is UserAuthSuccess) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(user: state.user),
+                  ),
+                );
+              } else if (state is UserAuthFailure) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const AuthScreen(),
+                  ),
+                );
+              }
             }
           )
         ],
