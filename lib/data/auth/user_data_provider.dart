@@ -65,7 +65,7 @@ class UserAuthDataProvider {
           uid: user.uid,
           email: user.email!,
           firstName: firstName,
-          lastName: lastName
+          lastName: lastName,
         );
       }
       return null;
