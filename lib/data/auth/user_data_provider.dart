@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:traxi/models/user_model.dart';
@@ -54,6 +55,12 @@ class UserAuthDataProvider {
       User? user = userCredential.user;
       if (user != null) {
         await user.updateDisplayName('$firstName $lastName');
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'firstName': firstName,
+          'lastName': lastName,
+          'email': email,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
         return UserModel(
           uid: user.uid,
           email: user.email!,
