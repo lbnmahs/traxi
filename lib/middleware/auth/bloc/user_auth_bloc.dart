@@ -11,15 +11,28 @@ part 'user_auth_event.dart';
 part 'user_auth_state.dart';
 
 class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
-  final UserRepository _userRepository;
+  final UserRepository userRepository;
 
-  UserAuthBloc(this._userRepository) : super(UserAuthInitial());
+  UserAuthBloc(this.userRepository) : super(UserAuthInitial());
 
   Stream<UserAuthState> authentication(UserAuthEvent event) async* {
     yield UserAuthLoading();
-    if (event is SignInEvent) {
+    if(event is CheckAuthEvent) {
       try {
-        User? firebaseUser = await _userRepository.signInWithEmailAndPassword( event.email, event.password );
+        final firebaseUser = await userRepository.getCurrentUser();
+        if (firebaseUser != null) {
+          UserModel user = UserModel.fromFirebaseUser(firebaseUser);
+          yield UserAuthSuccess(user: user);
+        } else {
+          yield UserAuthFailure(error: 'Failed to authenticate');
+        }
+      } catch (e) {
+        yield UserAuthFailure(error: e.toString());
+      }
+
+    } else if (event is SignInEvent) {
+      try {
+        User? firebaseUser = await userRepository.signInWithEmailAndPassword( event.email, event.password );
         
         if (firebaseUser != null) {
           UserModel user = UserModel.fromFirebaseUser(firebaseUser);
@@ -30,9 +43,10 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
       } catch (e) {
         yield UserAuthFailure(error: e.toString());
       }
+
     } else if (event is SignUpEvent) {
       try {
-        final user = await _userRepository.signUpWithEmailAndPassword(
+        final user = await userRepository.signUpWithEmailAndPassword(
           event.email,
           event.firstName,
           event.lastName,
@@ -42,20 +56,23 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
       } catch (e) {
         yield UserAuthFailure(error: e.toString());
       }
+
     } else if (event is SignOutEvent) {
       try {
-        await _userRepository.signOut();
+        await userRepository.signOut();
         yield UserAuthInitial();
       } catch (e) {
         yield UserAuthFailure(error: e.toString());
       }
+      
     } else if (event is SignOutEvent) {
       try {
-        await _userRepository.signOut();
+        await userRepository.signOut();
         yield UserAuthInitial();
       } catch (e) {
         yield UserAuthFailure(error: e.toString());
       }
+
     }
   }
 }

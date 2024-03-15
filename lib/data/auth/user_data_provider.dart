@@ -96,4 +96,8 @@ class UserAuthDataProvider {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+  Future<User?> getCurrentUser() async {
+    return _firebaseAuth.currentUser;
+  }
 }

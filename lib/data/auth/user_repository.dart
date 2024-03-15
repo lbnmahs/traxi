@@ -23,4 +23,8 @@ class UserRepository {
   Future<void> signOut() async {
     await _userAuthDataProvider.signOut();
   }
+
+  Future<User?> getCurrentUser() async {
+    return await _userAuthDataProvider.getCurrentUser();
+  }
 }

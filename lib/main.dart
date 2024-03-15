@@ -23,7 +23,16 @@ Future<void> main() async {
           create: (context) => UserRepository(UserAuthDataProvider()),
         ),
       ], 
-      child: const MyApp()
+      child: MultiBlocProvider(
+      providers: [
+        BlocProvider<UserAuthBloc>(
+          create: (context) => UserAuthBloc(
+            context.read<UserRepository>(),
+          )..add(CheckAuthEvent()),
+        ),
+      ],
+      child: const MyApp(),
+    ),
     )
   );
 }
