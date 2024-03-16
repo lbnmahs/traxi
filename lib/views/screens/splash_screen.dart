@@ -5,9 +5,26 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Splash Screen'),
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue, Colors.blue.shade900,],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Traxi',
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ),
       ),
     );
   }
