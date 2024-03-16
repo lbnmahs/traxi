@@ -3,5 +3,6 @@
         "dotenv",
         "firestore",
         "Traxi"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
