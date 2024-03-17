@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SplashScreen extends StatelessWidget {
+import 'package:traxi/middleware/auth/bloc/user_auth_bloc.dart';
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        context.read<UserAuthBloc>().add(CheckAuthEvent());
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +29,7 @@ class SplashScreen extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue, Colors.blue.shade900,],
+            colors: [ Colors.blue, Colors.blue.shade900, ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
