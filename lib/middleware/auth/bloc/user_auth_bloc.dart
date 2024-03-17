@@ -1,7 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 import 'package:traxi/data/auth/user_repository.dart';
@@ -13,38 +12,25 @@ part 'user_auth_state.dart';
 class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
   final UserRepository userRepository;
 
-  UserAuthBloc(this.userRepository) : super(UserAuthInitial());
-
-  Stream<UserAuthState> authentication(UserAuthEvent event) async* {
-    yield UserAuthLoading();
-    if(event is CheckAuthEvent) {
+  UserAuthBloc({required this.userRepository}) : super(UserAuthInitial()) {
+    // Sign In Event
+    on<SignInEvent>((event, emit) async {
+      emit(UserAuthLoading());
       try {
-        final firebaseUser = await userRepository.getCurrentUser();
-        if (firebaseUser != null) {
-          UserModel user = UserModel.fromFirebaseUser(firebaseUser);
-          yield UserAuthSuccess(user: user);
+        final user = await userRepository.signInWithEmailAndPassword(event.email, event.password);
+        if (user != null) {
+          emit(UserAuthSuccess(user: UserModel.fromFirebaseUser(user)));
         } else {
-          yield UserAuthFailure(error: 'Failed to authenticate');
+          emit(UserAuthFailure(error: 'Failed to sign in'));
         }
       } catch (e) {
-        yield UserAuthFailure(error: e.toString());
+        emit(UserAuthFailure(error: e.toString()));
       }
+    });
 
-    } else if (event is SignInEvent) {
-      try {
-        User? firebaseUser = await userRepository.signInWithEmailAndPassword( event.email, event.password );
-        
-        if (firebaseUser != null) {
-          UserModel user = UserModel.fromFirebaseUser(firebaseUser);
-          yield UserAuthSuccess(user: user);
-        } else {
-          yield UserAuthFailure(error: 'Failed to sign in');
-        }
-      } catch (e) {
-        yield UserAuthFailure(error: e.toString());
-      }
-
-    } else if (event is SignUpEvent) {
+    // Sign Up Event
+    on<SignUpEvent>((event, emit) async {
+      emit(UserAuthLoading());
       try {
         final user = await userRepository.signUpWithEmailAndPassword(
           event.email,
@@ -52,27 +38,40 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
           event.lastName,
           event.password,
         );
-        yield UserAuthSuccess(user: user!);
+        if (user != null) {
+          emit(UserAuthSuccess(user: user));
+        } else {
+          emit(UserAuthFailure(error: 'Failed to sign up'));
+        }
       } catch (e) {
-        yield UserAuthFailure(error: e.toString());
+        emit(UserAuthFailure(error: e.toString()));
       }
+    });
 
-    } else if (event is SignOutEvent) {
+    // Sign Out Event
+    on<SignOutEvent>((event, emit) async {
+      emit(UserAuthLoading());
       try {
         await userRepository.signOut();
-        yield UserAuthInitial();
+        emit(UserAuthInitial());
       } catch (e) {
-        yield UserAuthFailure(error: e.toString());
+        emit(UserAuthFailure(error: e.toString()));
       }
-      
-    } else if (event is SignOutEvent) {
-      try {
-        await userRepository.signOut();
-        yield UserAuthInitial();
-      } catch (e) {
-        yield UserAuthFailure(error: e.toString());
-      }
+    });
 
-    }
+    // Check Auth Event
+    on<CheckAuthEvent>((event, emit) async {
+      emit(UserAuthLoading());
+      try {
+        final firebaseUser = await userRepository.getCurrentUser();
+        if (firebaseUser != null) {
+          emit(UserAuthSuccess(user: UserModel.fromFirebaseUser(firebaseUser)));
+        } else {
+          emit(UserAuthFailure(error: 'Failed to authenticate'));
+        }
+      } catch (e) {
+        emit(UserAuthFailure(error: e.toString()));
+      }
+    });
   }
 }

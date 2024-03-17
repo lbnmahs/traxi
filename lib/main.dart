@@ -27,7 +27,7 @@ Future<void> main() async {
       providers: [
         BlocProvider<UserAuthBloc>(
           create: (context) => UserAuthBloc(
-            context.read<UserRepository>(),
+            userRepository: context.read<UserRepository>(),
           )..add(CheckAuthEvent()),
         ),
       ],
