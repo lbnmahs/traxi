@@ -3,11 +3,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import 'package:traxi/data/auth/user_repository.dart';
+import 'package:traxi/data/auth/auth_repository.dart';
 import 'package:traxi/models/user_model.dart';
 
-part 'user_auth_event.dart';
-part 'user_auth_state.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
   final UserRepository userRepository;

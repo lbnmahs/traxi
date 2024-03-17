@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:traxi/data/auth/user_data_provider.dart';
+import 'package:traxi/data/auth/auth_data_provider.dart';
 import 'package:traxi/models/user_model.dart';
 
 class UserRepository {

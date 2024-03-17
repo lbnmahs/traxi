@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:traxi/data/auth/user_data_provider.dart';
-import 'package:traxi/data/auth/user_repository.dart';
+import 'package:traxi/data/auth/auth_data_provider.dart';
+import 'package:traxi/data/auth/auth_repository.dart';
 import 'package:traxi/firebase_options.dart';
-import 'package:traxi/middleware/auth/bloc/user_auth_bloc.dart';
+import 'package:traxi/middleware/auth/bloc/auth_bloc.dart';
 import 'package:traxi/views/screens/auth_screen.dart';
 import 'package:traxi/views/screens/home_screen.dart';
 import 'package:traxi/views/screens/splash_screen.dart';
