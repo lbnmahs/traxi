@@ -11,8 +11,7 @@ class UserAuthDataProvider {
   Future<User?> signInWithEmailAndPassword( String email, String password ) async {
     try {
       UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: email.trim(), password: password,
       );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
@@ -50,7 +49,7 @@ class UserAuthDataProvider {
     }
     try {
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password
+        email: email.trim(), password: password
       );
       User? user = userCredential.user;
       if (user != null) {
