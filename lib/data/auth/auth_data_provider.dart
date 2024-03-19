@@ -17,22 +17,13 @@ class UserAuthDataProvider {
     } on FirebaseAuthException catch (e) {
       // Handling specific error codes
       switch (e.code) {
-        case 'email-already-in-use':
-          debugPrint('The provided email is already in use');
-          break;
-        case 'weak-password':
-          debugPrint('The provided password is too weak');
-          break;
         case 'user-not-found':
-          debugPrint('No user found for that email');
-          break;
+          throw Exception('No user found for that email');
         case 'wrong-password':
-          debugPrint('Wrong password provided for that user');
-          break;
+          throw Exception('Wrong password provided for that user');
         default:
-          debugPrint('An error occurred: ${e.code}');
+          throw Exception('An error occurred: ${e.code}');
       }
-      return null;
     } catch (e) {
       // Handle any other exceptions
       debugPrint('An unexpected error occurred: $e');
@@ -48,6 +39,7 @@ class UserAuthDataProvider {
       throw Exception('The provided password is not strong enough');
     }
     try {
+      debugPrint('Signing up with email: $email');
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email.trim(), password: password
       );
@@ -74,11 +66,11 @@ class UserAuthDataProvider {
           throw Exception('The provided email is already in use');
         case 'invalid-email':
           throw Exception('The provided email is invalid');
-        case 'operation-not-allowed':
-          throw Exception('Email/password accounts are not enabled');
         default:
           throw Exception('An error occurred: ${e.code}');
       }
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
     }
   }
   bool isPasswordStrong(String password) {

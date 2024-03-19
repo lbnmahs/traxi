@@ -2,7 +2,6 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 import 'package:traxi/data/auth/auth_repository.dart';
 import 'package:traxi/models/user_model.dart';
@@ -18,7 +17,6 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
     on<SignInEvent>((event, emit) async {
       emit(UserAuthLoading());
       try {
-        debugPrint('Signing in with email: ${event.email}');
         final user = await userRepository.signInWithEmailAndPassword(event.email, event.password);
         if (user != null) {
           emit(UserAuthSuccess(user: UserModel.fromFirebaseUser(user)));
@@ -34,11 +32,10 @@ class UserAuthBloc extends Bloc<UserAuthEvent, UserAuthState> {
     on<SignUpEvent>((event, emit) async {
       emit(UserAuthLoading());
       try {
-        debugPrint('Signing up with email: ${event.email}');
         final user = await userRepository.signUpWithEmailAndPassword(
           event.email,
           event.firstName,
-          event.lastName,
+          event.lastName, 
           event.password,
         );
         if (user != null) {

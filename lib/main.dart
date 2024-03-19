@@ -16,11 +16,14 @@ Future<void> main() async {
   await dotenv.load(fileName: '.env');
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final UserAuthDataProvider userAuthDataProvider = UserAuthDataProvider();
+
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<UserRepository>(
-          create: (context) => UserRepository(UserAuthDataProvider()),
+          create: (context) => UserRepository(userAuthDataProvider),
         ),
       ], 
       child: MultiBlocProvider(

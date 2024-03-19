@@ -22,26 +22,29 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredEmail = '';
   var _enteredPassword = '';
 
-  void _authenticate() async {
+  void _authenticate() {
     final isValid = _form.currentState!.validate();
     if(!isValid) return;
 
     _form.currentState!.save();
 
-    try {
-      if(_isLogin) {
-        context.read<UserAuthBloc>().add(
-          SignInEvent(_enteredEmail, _enteredPassword)
-        );
-      } else {
-        context.read<UserAuthBloc>().add(
-          SignUpEvent(_enteredFirstName, _enteredLastName, _enteredEmail, _enteredPassword)
-        );
-      }
-    } catch (e) {
-      // Handle error
+    if(_isLogin) {
+      context.read<UserAuthBloc>().add(
+        SignInEvent(
+          email: _enteredEmail,
+          password: _enteredPassword
+        )
+      );
+    } else {
+      context.read<UserAuthBloc>().add(
+        SignUpEvent(
+          email: _enteredEmail,
+          firstName: _enteredFirstName,
+          lastName: _enteredLastName,
+          password: _enteredPassword
+        )
+      );
     }
-
   }
 
   @override
@@ -188,9 +191,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       onSaved: (value) => _enteredEmail = value!,
                       validator: (value) {
-                        Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                        RegExp regex = RegExp(pattern.toString());
-                        if (value == null || value.isEmpty || !regex.hasMatch(value)) {
+                        if (value == null || value.isEmpty || !value.contains('@')) {
                           return 'Please enter a valid email address';
                         }
                         return null;
