@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:traxi/views/screens/home_screen.dart';
+import 'package:traxi/views/screens/notification_screen.dart';
+import 'package:traxi/views/screens/profile_screen.dart';
+import 'package:traxi/views/screens/tickets_screen.dart';
+
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
   @override
@@ -12,10 +17,18 @@ class _TabScreenState extends State<TabScreen> {
   void _onTabItemSelect (int index) {
     setState(() => _screenIndex = index);
   }
+
+  final _pages = [
+    const HomeScreen(),
+    const TicketScreen(),
+    const NotificationScreen(),
+    const ProfileScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Text('First Screen'),
+      body: _pages.elementAt(_screenIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_rounded)),

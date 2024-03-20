@@ -9,8 +9,8 @@ import 'package:traxi/data/auth/auth_repository.dart';
 import 'package:traxi/firebase_options.dart';
 import 'package:traxi/middleware/auth/bloc/auth_bloc.dart';
 import 'package:traxi/views/screens/auth_screen.dart';
-import 'package:traxi/views/screens/home_screen.dart';
 import 'package:traxi/views/screens/splash_screen.dart';
+import 'package:traxi/views/screens/tabs.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: '.env');
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
               if(state is UserAuthSuccess) {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(user: state.user),
+                    builder: (context) => const TabScreen(),
                   ),
                 );
               } else if (state is UserAuthFailure) {

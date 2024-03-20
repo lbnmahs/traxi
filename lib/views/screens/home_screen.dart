@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:traxi/models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.user});
-
-  final UserModel user;
-
+  const HomeScreen({super.key});
+  
   @override
   State<StatefulWidget> createState() {
     return _HomeScreenState();

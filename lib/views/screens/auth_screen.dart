@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:traxi/middleware/auth/bloc/auth_bloc.dart';
-import 'package:traxi/views/screens/home_screen.dart';
+import 'package:traxi/views/screens/tabs.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -61,7 +61,7 @@ class _AuthScreenState extends State<AuthScreen> {
           );
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => HomeScreen(user: state.user),
+              builder: (context) => const TabScreen(),
             ),
           );
         }
