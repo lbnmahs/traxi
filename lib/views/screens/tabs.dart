@@ -32,7 +32,7 @@ class _TabScreenState extends State<TabScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket_rounded), label: 'Tickets'),
+          BottomNavigationBarItem(icon: Icon(Icons.book_online_rounded), label: 'Tickets'),
           BottomNavigationBarItem(icon: Icon(Icons.notifications_active_rounded), label: 'Notifications'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
@@ -40,6 +40,8 @@ class _TabScreenState extends State<TabScreen> {
         onTap: _onTabItemSelect,
         selectedItemColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
         unselectedItemColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.4),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
       ),
     );
   }
