@@ -31,10 +31,10 @@ class _TabScreenState extends State<TabScreen> {
       body: _pages.elementAt(_screenIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_rounded)),
-          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket_rounded)),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications_active_rounded)),
-          BottomNavigationBarItem(icon: Icon(Icons.person)),
+          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket_rounded), label: 'Tickets'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_active_rounded), label: 'Notifications'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         currentIndex: _screenIndex,
         onTap: _onTabItemSelect,
