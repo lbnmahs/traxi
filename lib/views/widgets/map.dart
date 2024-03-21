@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Map extends StatefulWidget {
-  const Map({super.key});
-  @override
-  State<Map> createState() => _MapState();
-}
+class UserMap extends StatelessWidget {
+  const UserMap({
+    super.key, 
+    required this.initialCameraPosition, 
+    this.onMapCreated
+  });
 
-class _MapState extends State<Map> {
+  final LatLng initialCameraPosition;
+  final Function(GoogleMapController)? onMapCreated;
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
+    return GoogleMap(
+      onMapCreated: onMapCreated,
+      initialCameraPosition: CameraPosition(
+        target: initialCameraPosition,
+        zoom: 16,
+      ),
+      myLocationButtonEnabled: true,
+      myLocationEnabled: true,
     );
   }
 }
