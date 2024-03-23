@@ -1,6 +1,6 @@
 # Traxi
 
-Traxi is a convenient and intuitive platform designed to effortlessly book train and tram tickets, offering real-time updates, and secure payments. This project uses Firebase as the backend service and the BLoC architecture as the state manager.
+Traxi is a convenient and intuitive platform designed to effortlessly book tram tickets, offering real-time updates, and secure payments. This project uses Firebase as the backend service and the BLoC architecture as the state manager.
 
 ## Getting Started
 
